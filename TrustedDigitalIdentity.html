@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>可信数字身份</title>
+		<!-- 引入导航栏样式 -->
+		<link rel="stylesheet" href="./css/navbar.css">
+		<link rel="stylesheet" href="./css/TrustedDigitalIdentity.css">
+		<link rel="stylesheet" href="./css/GameAssetDetail.css">
+
+		<script src="./lib/vue-v2.6.14.js"></script>
+
+		<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0, user-scalable=yes,shrink-to-fit=no">
+	</head>
+	<body>
+		<!-- 引入nav-menu -->
+		<div class="nav-menu">
+			<div class="nav-leftArea">
+				<div class="nav-COANLogo">
+					<img src="img/logohqbsecai 1.png" alt="" id="nav-COANLogo">
+				</div>
+				<div class="nav-COANTitle">
+					<div class="nav-titleText" id="nav-COANTitle">COAN</div>
+				</div>
+				<div class="nav-searchArea">
+					<div class="nav-searchAreaAndIcon">
+						<input type="text" class="nav-searchBar" placeholder="搜你想要">
+						<div class="nav-searchImg">
+							<img src="img/searchIcon.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="nav-rightArea">
+				<div class="nav-menuEntry">
+					<!-- <div class="menuItem" id="menuItem0">NFT交易区</div> -->
+					<div class="nav-menuItem" id="nav-menuItem1">
+						
+						<div class="nav-dropdown">
+						    <button class="nav-dropbtn">游戏资产交易
+						      <i class="fa fa-caret-down"></i>
+						    </button>
+						    <div class="nav-dropdown-content">
+						      <a href="NormalGameAssetTrading.html">普通游戏资产</a>
+						      <a href="MetaGameAssetTrading.html" style="font-size: 15px;">元宇宙游戏资产</a>
+						    </div>
+						  </div>
+					</div>
+					<div class="nav-menuItem" id="nav-menuItem0">
+						<div class="nav-dropdown">
+						    <button class="nav-dropbtn">NFT艺术品
+						      <i class="fa fa-caret-down"></i>
+						    </button>
+						    <div class="nav-dropdown-content">
+						      <a href="NFTArts.html">NFT艺术品</a>
+						      <a href="NFTAuthoring.html">创作者专区</a>
+						    </div>
+						  </div>
+					</div>
+					<div class="nav-menuItem" id="nav-menuItem2">
+						COAN Daily
+					</div>
+					<div class="nav-menuItem" id="nav-menuItem3">COAN Space</div>
+				</div>
+				<div class="nav-loginAndRegistArea">
+					<div class="nav-userheadArea" id="nav-userhead">
+						<img src="img/userhead.png" alt="" id="userheadPic">
+					</div>
+					<div class="nav-loginAndRegistText" id="nav-usertitle">登录</div>
+				</div>
+				<div class="nav-contactUs" id="nav-ContactLogo">
+					<img src="img/contactUs.png" alt="" >
+					<div class="nav-contactText">联系我们</div>
+				</div>
+			</div>
+		</div>
+		<div class="nav-menu-zw"></div>
+		<div class="content" id="app">
+			<div class="content-leftArea">
+				<div class="pic-area">
+					<div class="kxszsf-title">
+						可信数字身份
+					</div>
+					<div class="tokenid-area">
+						Token ID
+					</div>
+				</div>
+				<div class="currentid-area">
+					<div class="current-title">
+						当前我的身份Token ID：
+					</div>
+					<div class="id-area">
+						{{oldTokenId}}
+						
+					</div>
+				</div>
+				<div class="btn-area">
+					<button style="font-size: 24px" @click="openDialog()">生成</button>
+					<button style="font-size: 24px" @click="openDialog1()">管理</button>
+				</div>
+			</div>
+			<div class="content-rightArea">
+				<div class="first-row">
+					可支持平台
+				</div>
+				<div class="img-row">
+					<img src="./img/supportplatform1.png" alt="">
+				</div>
+				<div class="img-row">
+					<img src="./img/supportplatform2.png" alt="">
+				</div>
+				<div class="img-row">
+					<img src="./img/supportplatform3.png" alt="">
+				</div>
+				<div class="img-row">
+					<img src="./img/supportplatform4.png" alt="">
+				</div>
+				<div class="ending-row">
+					更多游戏正在合作中...
+				</div>
+			</div>
+
+			<div id="light" class="pay-popup" style="margin-left: 0;margin-top: 10px">
+				<div class="pay-title-bar" style="margin-bottom: 20px;">
+					<div class="pay-title-text" style="font-size: 24px">
+						请选择下列属性生成 Token ID
+					</div>
+					<div class="exit-btn-area" @click="closeDialog()">
+						<img src="./img/exit.png" alt="">
+					</div>
+				</div>
+
+				<div class="pay-accountAndway">
+
+					<div class="pay-account-row" style="padding: 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							姓名(中文)
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{name1}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							姓名(拼音)
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{name2}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							性别
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{sex}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							国籍
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{nationality}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							证件类型
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{IDType}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							证件号码
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{id}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							绑定手机号
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{phone}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							职业
+						</div>
+						<div class="pay-account-row-info">
+
+							<span style="margin-right: 20px;color: #cac4d0">{{career}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 5px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							风险等级
+						</div>
+						<div class="pay-account-row-info">
+							<span style="margin-right: 20px;color: #cac4d0">{{risk}}</span>
+							<input type="checkbox" name="original" value="yes" style="">
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="popup-confirm-btn-area">
+						<button class="popup-confirm-btn" @click="getTokenId()">生成</button>
+					</div>
+				</div>
+			</div>
+			<div id="black-bg"></div>
+
+			<div id="light1" class="pay-popup" style="margin-left: 0;margin-top: 10px">
+				<div class="pay-title-bar" style="margin-bottom: 20px;">
+					<div class="pay-title-text" style="font-size: 24px">
+						历史生成 Token ID
+					</div>
+					<div class="exit-btn-area" @click="closeDialog1()">
+						<img src="./img/exit.png" alt="">
+					</div>
+				</div>
+
+				<div class="pay-accountAndway">
+
+					<div class="pay-account-row" style="padding: 15px;margin-bottom: 0">
+						<div class="pay-account-row-label" style="margin-left: 10%">
+							时间
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 25%">
+							<span style="margin-right: 20px;color: #cac4d0">Token ID</span>
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time1}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId1}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time2}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId2}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time3}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId3}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time4}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId4}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time5}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId5}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time6}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId6}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+
+						</div>
+					</div>
+					
+					<div class="popup-underline" style="width: 100%;height: 0.1rem;margin-left: 0"></div>
+					
+					<div class="pay-account-row" style="padding: 0px 15px;margin-bottom: 0">
+						<div class="pay-account-row-label">
+							{{time7}}
+						</div>
+						<div class="pay-account-row-info" style="margin-right: 20px">
+							<span style="margin-right: 20px;color: #cac4d0">
+								{{tokenId7}}
+							</span>
+							<span style="color: #cac4d0;font-size: 16px;margin-left: 20px">复制</span>
+					
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script src="js/navbar.js"></script>
+
+	<script>
+		const vm = new Vue({
+			el: "#app",
+			data: {
+				name1:"李明",
+				name2:"li ming",
+				sex:"男",
+				nationality:"中国(大陆)",
+				IDType:"身份证",
+				phone:"157****9413",
+				career:"数据分析师",
+				risk:"中",
+				id:"431*************71",
+
+				time1:"2023-5-12 15:23:42",
+				tokenId1:"54dSeRTg2a3vaAs56sd1rYt2......",
+				time2:"2023-5-16 18:15:20",
+				tokenId2:"r32kdSFMkg4532F152eed1.......",
+				time3:"2023-5-21 8:42:30",
+				tokenId3:"w4wW15f2eayk133sfd5wDF......",
+				time4:"2023-5-26 10:58:39",
+				tokenId4:"adW15fg2DG1233S123f6htd......",
+				time5:"2023-5-26 21:48:19",
+				tokenId5:"81saF2W3rsfg135w6af1fg15......",
+				time6:"2023-6-1 17:45:11",
+				tokenId6:"SF56e1fsd25ds2D5rDBFR56......",
+				time7:"2023-6-8 3:20:11",
+				tokenId7:"SF56e1fsd25ds2D5rDBFR56......",
+				
+				oldTokenId:"eyJ0eXAiOiJKV11NiJ9.eyJzdWIRGdWV9...",
+			},
+			methods: {
+				closeDialog(){
+					document.getElementById('light').style.display='none';
+					document.getElementById('black-bg').style.display='none';
+				},
+				openDialog(){
+					document.getElementById('light').style.display='block';
+					document.getElementById('black-bg').style.display='block';
+				},
+				closeDialog1(){
+					document.getElementById('light1').style.display='none';
+					document.getElementById('black-bg').style.display='none';
+				},
+				openDialog1(){
+					document.getElementById('light1').style.display='block';
+					document.getElementById('black-bg').style.display='block';
+				},
+				getTokenId(){
+					document.getElementById('light').style.display='none';
+					document.getElementById('black-bg').style.display='none';
+					alert("生成成功")
+					var myDate = new Date;
+					this.oldTokenId = "5FS631gASE5g45jhdr1565sn6...";
+					this.time7 = this.getNowDate();
+					this.tokenId7 = "5FS631gASE5g45jhdr1565sn6...";
+				},
+				getNowDate() {
+					var myDate = new Date;
+					var year = myDate.getFullYear(); //获取当前年
+					var mon = myDate.getMonth() + 1; //获取当前月
+					var date = myDate.getDate(); //获取当前日
+					var hours = myDate.getHours(); //获取当前小时
+					var minutes = myDate.getMinutes(); //获取当前分钟
+					var seconds = myDate.getSeconds(); //获取当前秒
+					var now = year + "-" + mon + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+					return now;
+				},
+			}
+		})
+
+	</script>
+	</body>
+</html>

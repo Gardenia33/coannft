@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AI作画创作</title>
+        <!-- 引入导航栏样式 -->
+        <link rel="stylesheet" href="./css/navbar.css">
+        <link rel="stylesheet" href="./css/NFTAuthoring.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0, user-scalable=yes,shrink-to-fit=no">
+		<script src="./lib/vue-v2.6.14.js"></script>
+		<!-- 使用cdn的方式引入jquery -->
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> 
+	</head>
+    <body onclick="hidePopup()">
+        <!-- 引入nav-menu -->
+        <div class="nav-menu">
+            <div class="nav-leftArea">
+                <div class="nav-COANLogo">
+                    <img src="img/logohqbsecai 1.png" alt="" id="nav-COANLogo">
+                </div>
+                <div class="nav-COANTitle">
+                    <div class="nav-titleText" id="nav-COANTitle">COAN</div>
+                </div>
+                <div class="nav-searchArea">
+                    <div class="nav-searchAreaAndIcon">
+                        <input type="text" class="nav-searchBar" placeholder="搜你想要">
+                        <div class="nav-searchImg">
+                            <img src="img/searchIcon.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-rightArea">
+                <div class="nav-menuEntry">
+                    <!-- <div class="menuItem" id="menuItem0">NFT交易区</div> -->
+                    <div class="nav-menuItem" id="nav-menuItem1">
+
+                        <div class="nav-dropdown">
+                            <button class="nav-dropbtn">游戏资产交易
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="nav-dropdown-content">
+                                <a href="NormalGameAssetTrading.html">普通游戏资产</a>
+                                <a href="MetaGameAssetTrading.html" style="font-size: 15px;">元宇宙游戏资产</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-menuItem" id="nav-menuItem0">
+                        <div class="nav-dropdown">
+                            <button class="nav-dropbtn">NFT艺术品
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="nav-dropdown-content">
+                                <a href="NFTArts.html">NFT艺术品</a>
+                                <a href="NFTAuthoring.html">创作者专区</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="nav-menuItem" id="nav-menuItem2">COAN Daily</div>
+                    <div class="nav-menuItem" id="nav-menuItem3">COAN Space</div>
+                </div>
+                <div class="nav-loginAndRegistArea">
+                    <div class="nav-userheadArea" id="nav-userhead">
+                        <img src="img/userhead.png" alt="" >
+                    </div>
+                    <div class="nav-loginAndRegistText" id="nav-usertitle">登录</div>
+                </div>
+                <div class="nav-contactUs" id="nav-ContactLogo">
+                    <img src="img/contactUs.png" alt="" >
+                    <div class="nav-contactText">联系我们</div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-menu-zw">
+            1
+        </div>
+        <!-- 主体 -->
+        <div class="main" id="app">
+            <div class="container">
+                <div class="row" style="justify-content: left">
+                    <div class="">
+                        <a class="NFTSkip-To" href="NFTAuthoring.html">用户上传展示</a>
+                        <a class="NFTSkip-To active" href="NFTAuthoringAiDraw.html">AI作画创作</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="w-100">
+                        <div class="w-70" style="float: left;margin-top: 5px;">
+                            <h3 style="padding:0; margin-bottom: 1rem;" class="main-header">
+                                <img src="./img/Rectangle%2062.png" alt=""/>
+                                <span>AI生成区</span>
+                            </h3>
+                            <div class="w-100" style="float: left;border-radius: 5px">
+                                <div class="row column" style="flex-direction: row;border-radius: 5px">
+                                    <div class="w-50" style="float: left">
+                                        <form action="" method="post">
+                                            <div class="form-group" style="margin-top: 5px">
+                                                <label for="setting">
+                                                    <span>STAP1</span>
+                                                    <span style="font-size: 5px;color: #CAC4D0">上传风格训练图片</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="stap12">
+                                                <div class="form-group form-group-static">
+                                                    <div class="img"  @click="modelPicUpload()">
+                                                        <div :class="['NFTImg',isModelUploaded==0?'':'displaynone']">
+															<!-- {{isModelUploaded}} -->
+                                                            <img src="./img/img_20.png" alt=""/>
+                                                        </div>
+                                                        <div :class="['NFTImg-title',isModelUploaded==0?'':'displaynone']">点击上传风格训练图片模板</div>
+                                                        <div :class="isModelUploaded==0?'':'displaynone'" style="color: #CAC4D0">（支持jpg格式）</div>
+														<!-- 选择文件按钮 -->
+														<input style="display: none;" type="file" id="modelpicUpload" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" multiple>
+														<img style="width: 100%;" :class="['display-preview-model',isModelUploaded==0?'displaynone':'']" alt="" id="preview_model" src=""/>
+														<div :class="isModelUploaded==0?'displaynone':''" style="margin-top:5px;color: white;font-size: 16px;">
+															等{{numofmodel}}张图片
+														</div>
+													</div>
+                                                </div>
+                                                <div style="text-align: center;" class="form-group">
+                                                    <div class="generate" @click="uploadAndTrain()">开始训练</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="margin-top: 15px">
+                                                <span style="font-size: 5px;color: #CAC4D0">生成的模型：</span>
+                                                <span style="font-size: 5px;color: #CAC4D0">{{modelpicResultname}}</span>
+												
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="w-50" style="float: right">
+                                        <form action="" method="post">
+
+                                            <div class="form-group" style="margin-top: 5px">
+                                                <label for="setting">
+                                                    <span>STAP2</span>
+                                                    <span style="font-size: 5px;color: #CAC4D0">上传/画出意向生成图形</span>
+                                                </label>
+                                            </div>
+
+                                            <div class="stap12">
+                                                <div class="form-group form-group-static">
+                                                    <div class="img" style="border-radius: 5px;height: 250px" @click="createPicUpload()">
+                                                        <div :class="['NFTImg',isCreateUploaded==0?'':'displaynone']" style="margin-top: 30px">
+                                                            <img src="./img/img_20.png" alt=""/>
+                                                        </div>
+                                                        <div :class="isCreateUploaded==0?'':'displaynone'" style="color: #CAC4D0;margin-top: 5px">点击上传、在线作画意向生成图形</div>
+                                                        <div :class="isCreateUploaded==0?'':'displaynone'" style="color: #CAC4D0">（支持jpg格式）</div>
+														<!-- 选择文件按钮 -->
+														<input style="display: none;" type="file" id="createpicUpload" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
+														<img :class="['display-preview-model',isCreateUploaded==0?'displaynone':'']" style="width: 100%; height:100%;" src="" alt="" id="preview_create">
+                                                    </div>
+                                                </div>
+
+                                                <div style="margin-bottom: 70px" class="form-group">
+                                                    <div class="generate" style="float: left;margin-left: 5%" @click="toPaintingPage()">像素板在线绘画</div>
+                                                    <div class="generate" style="float: right;margin-right: 5%" @click="uploadAndCreate()">开始生成</div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-30" style="float: right;margin-top: 5px;">
+                            <h3 style="padding:0; margin-bottom: 1rem;" class="main-header">
+                                <img src="./img/Rectangle%2062.png" alt=""/>
+                                <span>创作我的NFT</span>
+                            </h3>
+                            <div class="row column" style="border-radius: 5px">
+                                <form action="" method="post">
+
+                                    <div class="form-group" style="margin-top: 5px">
+                                        <label for="setting">
+                                            <span>STAP3</span>
+                                            <span style="font-size: 5px;color: #CAC4D0">发布生成我的NFT</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group" style="margin-top: 5px">
+                                        <div class="custom" style="margin-top: 15px">
+                                            <label for="setting" style="width: 25%">NFT名称</label>
+                                            <input style="height: 30px;margin-left: 1px" id="setting" class="form-control" placeholder=""
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-top: 5px">
+                                        <div class="custom" style="margin-top: 15px">
+                                            <div class="original">
+                                                <span>是否原创</span>
+                                                <input type="radio" name="original" value="yes" style="margin-left: 15px">
+                                                <label style="color: #ffffff;margin-left: 3px">是</label>
+                                                <input type="radio" name="original" value="no" style="margin-left: 15px">
+                                                <label style="color: #ffffff;margin-left: 3px">否</label>
+												<a style="margin-left: 40px;" href="https://github.com/Lyh8663/md-image/blob/main/img/%E5%8E%9F%E5%88%9B%E6%80%A7%E5%A3%B0%E6%98%8E.png?raw=true">原创性声明</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-top: 5px">
+                                        <div class="custom" style="margin-top: 15px">
+                                            <span>创作工具</span>
+                                            <div class="radio-utils">
+                                                <input type="radio" id="utils1" name="utils">
+                                                <label for="utils1">AICG1</label>
+                                            </div>
+                                            <div class="radio-utils">
+                                                <input type="radio" id="utils2" name="utils">
+                                                <label for="utils2">AICG2</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group form-group-static">
+                                        <div class="img" style="border-radius: 5px" @click="nftPicUpload()">
+                                            <div :class="['NFTImg',isnftUploaded==0?'':'displaynone']">
+                                                <img src="./img/img_20.png" alt=""/>
+                                            </div>
+                                            <div :class="isnftUploaded==0?'':'displaynone'" style="color: #CAC4D0;margin-top: 5px">点击上传NFT作品</div>
+                                            <div :class="isnftUploaded==0?'':'displaynone'" style="color: #CAC4D0">（支持jpg格式）</div>
+											<!-- 选择文件按钮 -->
+											<input style="display: none;" type="file" id="nftpicUpload" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg">
+											<img :class="['display-preview-model',isnftUploaded==0?'displaynone':'']" style="width: 100%;" :class="['display-preview-model',isnftUploaded==0?'displaynone':'']" alt="" id="preview_nft" src=""/>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group form-group-static">
+                                        <textarea class="form-control" rows="5" placeholder="介绍一下你的作品吧..."></textarea>
+                                    </div>
+
+                                    <div style="text-align: center;" class="form-group">
+                                        <div class="generate" @click="startCreate()">开始创作</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="nftdetail-popup" id="nftdetail">
+				<div class="recharge-title-bar">
+					<div class="recharge-title-text">
+						资产详情
+					</div>
+					<div class="exit-btn-area" @click="closeNFTAssetDetailDialog()">
+						<img src="./img/exit.png" alt="">
+					</div>
+				</div>
+				<div style="width:100%;height:30rem;display: flex;align-items: center;justify-content: center;">
+					<img :src="createdPic" alt="" style="height: 70%;width: 50%;">
+				</div>
+				<div style="width:100%;display:flex;align-items: center;justify-content: center;">
+					<button class="generate" @click="save()">下载</button>
+				</div>
+			</div>
+			<div id="black-bg">
+				
+			</div>
+        </div>
+		
+        <!-- 引入导航的js -->
+        <script src="js/navbar.js"></script>
+		<!-- <script src=”https://unpkg.com/axios/dist/axios.min.js”></script> -->
+		<script>
+			const vm = new Vue({
+				el: "#app",
+				data:{
+					//表示上传训练图片的张数
+					numofmodel:0,
+					//0表示nft图片未上传，1表示nft图片已上传
+					isnftUploaded:0,
+					//0表示意向图片未上传，1表示意向图片已上传
+					isCreateUploaded:0,
+					//0表示训练图片未上传，1表示训练图片已上传
+					isModelUploaded: 0,
+					//表示传上来的训练图片base64集合
+					modelpicbase64:[],
+					//表示生成的模型名
+					modelpicResultname:'',
+					//表示传上来的目标图片base64
+					createpicbase64:'',
+					//表示返回的生成图像
+					createdPic:''
+				},
+				methods:{
+					//下载
+					save() {
+	 					var url = this.createdPic; // 获取图片地址
+	 					var a = document.createElement('a'); // 创建一个a节点插入的document
+	 					var event = new MouseEvent('click') // 模拟鼠标click点击事件
+	 					a.download = 'AI生成图像' // 设置a节点的download属性值
+	 					a.href = url; // 将图片的src赋值给a节点的href
+	 					a.dispatchEvent(event)
+ 					},
+					//nft资产详情弹出框相关函数
+					closeNFTAssetDetailDialog(){
+						document.getElementById('nftdetail').style.display='none';
+						document.getElementById('black-bg').style.display='none';
+					},
+					openNFTAssetDetailDialog(){
+						document.getElementById('nftdetail').style.display='block';
+						document.getElementById('black-bg').style.display='block';
+					},
+					//上传并生成
+					uploadAndCreate(){
+						var that = this;
+						alert("正在生成图像，请稍等...")
+						$.ajax({
+            				url:"http://127.0.0.1:8000/test/",
+            				type:"post",
+            				data:{
+                				image:this.createpicbase64,
+                				count: 1
+            				},
+            				dataType:"text",
+            				xhrFields:{
+                				withCredentials:true
+            				},
+            				success:function(data){
+                				//"data:image/jpeg;base64," + data
+								that.createdPic = "data:image/jpeg;base64," + data;
+								that.openNFTAssetDetailDialog();
+            				}
+        				});
+					},
+					//上传并训练
+					uploadAndTrain(){
+						alert("请等待模型生成")
+						//alert("点击按钮")
+						var that = this;
+						////////////////////////////
+						$.ajax({
+						    url:"http://127.0.0.1:8000/upload/",
+						    type:"POST",
+						    data:{
+						        images: that.modelpicbase64
+						    },
+						    dataType:"text",
+						    xhrFields:{
+						        withCredentials:true
+						    },
+						    success:function(data){
+						        console.log("success!");
+						        // info(data);
+								// alert("Success!");
+								$.ajax({
+								    url:"http://127.0.0.1:8000/train/",
+								    type:"get",
+								    data:{
+								    },
+								    dataType:"text",
+								    xhrFields:{
+								        withCredentials:true
+								    },
+								    success:function(data){
+								        if(data===""){
+								            alert("模型生成失败！")
+								        }else{
+											// document.getElementById("modelName").innerHTML=data;
+											//将生成的模型名渲染上去
+											that.modelpicResultname = data;
+											alert("模型生成成功！")
+								        }
+								    }
+								});
+						    }
+						});
+					},
+					//点击开始创作NFT
+					startCreate(){
+						alert("您的NFT创作请求已上传，请留意您的邮件信息")
+					},
+					//上传nft图片
+					nftPicUpload(){
+						var nftpicUpload = document.getElementById("nftpicUpload");
+						var preview_nft = document.getElementById("preview_nft");
+						nftpicUpload.click();
+						var that = this;
+						nftpicUpload.addEventListener('change', function() {
+							// 清除背景图片:
+							preview_nft.style.backgroundImage = '';
+							let file = nftpicUpload.files[0];
+							// 获取了图片内容
+							//大小限制的代码
+							// let size = file.size;
+							// if (size >= 1 * 1024 * 1024) {
+								// alert('文件大小超出限制');
+								// info.innerHTML = '文件大小超出限制';
+								// return false;
+							// }
+							
+							// 读取文件:
+							let reader = new FileReader();
+							reader.onload = function(e) {
+								let data = e.target.result;
+								// console.log(preview_model, 'a标签')
+								// alert(data)  -- base64编码
+								if(data!=null){
+									//给展示区赋值
+									preview_nft.src = data
+									//控制开关从隐藏变成展示
+									that.isnftUploaded = 1;
+								}
+								
+							};
+							// 以DataURL的形式读取文件:
+							reader.readAsDataURL(file);
+							// alert(file.name)
+						})
+						
+						
+					},
+					//前往像素版在线绘画
+					toPaintingPage(){
+						window.location.href="https://www.pixilart.com/draw?ref=home-page"
+					},
+					//上传意向生成图片
+					createPicUpload(){
+						var createpicUpload = document.getElementById("createpicUpload");
+						var preview_create = document.getElementById("preview_create");
+						createpicUpload.click();
+						var that = this;
+						createpicUpload.addEventListener('change', function() {
+							// 清除背景图片:
+							preview_create.style.backgroundImage = '';
+							let file = createpicUpload.files[0];
+							
+							// 读取文件:
+							let reader = new FileReader();
+							reader.onload = function(e) {
+								let data = e.target.result;
+								// console.log(preview_model, 'a标签')
+								// alert(data)  -- base64编码
+								if(data!=null){
+									//给展示区赋值
+									preview_create.src = data
+									//控制开关从隐藏变成展示
+									that.isCreateUploaded = 1;
+									that.createpicbase64 = data;
+								}
+								
+							};
+							// 以DataURL的形式读取文件:
+							reader.readAsDataURL(file);
+							// alert(file.name)
+						})
+						
+						
+					},
+					//上传风格训练图片
+					modelPicUpload(){
+						this.modelpicbase64 = [];
+						var modelpicUpload = document.getElementById("modelpicUpload");
+						var preview_model = document.getElementById("preview_model");
+						modelpicUpload.click();
+						var that = this;
+						modelpicUpload.addEventListener('change', function() {
+							// 清除背景图片:
+							preview_model.style.backgroundImage = '';
+							var file = modelpicUpload.files[0];
+							that.numofmodel = modelpicUpload.files.length;
+							
+							// 获取了图片内容
+							//大小限制的代码
+							// let size = file.size;
+							// if (size >= 1 * 1024 * 1024) {
+								// alert('文件大小超出限制');
+								// info.innerHTML = '文件大小超出限制';
+								// return false;
+							// }
+							
+							// 读取文件:
+							let reader = new FileReader();
+							reader.onload = function(e) {
+								let data = e.target.result;
+								// console.log(preview_model, 'a标签')
+								// alert(data)  -- base64编码
+								if(data!=null){
+									//给展示区赋值
+									preview_model.src = data
+									//控制开关从隐藏变成展示
+									that.isModelUploaded = 1;
+									//将读到的结果写入
+									that.modelpicbase64.push(data);
+									// alert(that.modelpicbase64.length)
+									// alert(that.modelpicbase64[0])
+									// alert(that.modelpicbase64[1])
+								}
+								
+							};
+							// 以DataURL的形式读取文件:
+							
+							for(var i = 0;i<that.numofmodel;i++){
+								file = modelpicUpload.files[i];
+								reader.readAsDataURL(file);
+							}
+							// alert(file.name)
+						})
+						
+						
+					},
+				}
+			})
+		</script>
+		<!-- <script>
+			var modelpicUpload = document.getElementById("modelpicUpload")
+			modelpicUpload.addEventListener('change', function() {
+				// 清除背景图片:
+				preview.style.backgroundImage = '';
+				if (!modelpicUpload.value) {
+					info.innerHTML = '没有选择文件';
+					return;
+				}
+				let file = modelpicUpload.files[0];
+				let size = file.size;
+				if (size >= 1 * 1024 * 1024) {
+					alert('文件大小超出限制');
+					info.innerHTML = '文件大小超出限制';
+					return false;
+				}
+				// 获取File信息:
+				info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+				if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+					alert('不是有效的图片文件!');
+					return;
+				}
+				// 读取文件:
+				let reader = new FileReader();
+				reader.onload = function(e) {
+					let data = e.target.result;
+					console.log(preview, 'a标签')
+					preview.src = data
+				};
+				// 以DataURL的形式读取文件:
+				reader.readAsDataURL(file);
+				 
+			});
+		</script> -->
+    </body>
+</html>
