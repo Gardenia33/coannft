@@ -76,71 +76,34 @@
 
 <script type="module" >
 
+
 import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
 
-        // 使用球体代替立方体
-        const geometry = new THREE.SphereGeometry(1, 32, 32);
+			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+			const cube = new THREE.Mesh( geometry, material );
+			scene.add( cube );
 
-        // 使用渐变色材质
-        const material = new THREE.MeshPhongMaterial({
-           // color: 0xff0000,   // 红色
-           color: 0xffffff,
-            emissive: 0x070707, // 发光部分，增强渲染效果
-            flatShading: true  // 平滑着色
-        });
+			camera.position.z = 5;
 
-        const mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+			function animate() {
+				requestAnimationFrame( animate );
 
-        // 添加彩色光源
-      //  const light1 = new THREE.PointLight(0xff0040, 2, 50);
-        //light1.position.set(10, 10, 10);
-        //scene.add(light1);
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
 
-        //const light2 = new THREE.PointLight(0x0040ff, 2, 50);
-        //light2.position.set(-10, -10, -10);
-        //scene.add(light2);
-        // 添加不同颜色的点光源
-        const light1 = new THREE.PointLight(0xff0000, 2, 50);
-        light1.position.set(10, 10, 10);
-        scene.add(light1);
+				renderer.render( scene, camera );
+			}
 
-        const light2 = new THREE.PointLight(0x00ff00, 2, 50);
-        light2.position.set(-10, -10, -10);
-        scene.add(light2);
-
-        const light3 = new THREE.PointLight(0x0000ff, 2, 50);
-        light3.position.set(0, 0, 10);
-        scene.add(light3);
-
-        camera.position.z = 5;
-
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // 使球体旋转
-            mesh.rotation.x += 0.01;
-            mesh.rotation.y += 0.01;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-    </script>
-</body>
-</html>
-
-
-
-
-
+			animate();
+		</script>
 
 <!--
 <script type="text/javascript">
