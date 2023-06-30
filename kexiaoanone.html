@@ -77,33 +77,58 @@
 <script type="module" >
 
 
-import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+        import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 
-			const scene = new THREE.Scene();
-			const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-			const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-			const cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+        // 使用 OctahedronGeometry（八面体几何体）
+        const geometry = new THREE.OctahedronGeometry(1);
 
-			camera.position.z = 5;
+        // 使用彩色材质
+        const material = new THREE.MeshPhongMaterial({
+           color: 0xf7630c,   // 橙色
+          // color: 0x00ff00,
+            emissive: 0x070707, // 发光部分，增强渲染效果
+            flatShading: true  // 平滑着色
+        });
 
-			function animate() {
-				requestAnimationFrame( animate );
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+        // 添加不同颜色的点光源
+        const light1 = new THREE.PointLight(0xff0000, 2, 50);
+        light1.position.set(10, 10, 10);
+        scene.add(light1);
 
-				renderer.render( scene, camera );
-			}
+        const light2 = new THREE.PointLight(0x00ff00, 2, 50);
+        light2.position.set(-10, -10, -10);
+        scene.add(light2);
 
-			animate();
-		</script>
+        const light3 = new THREE.PointLight(0x0000ff, 2, 50);
+        light3.position.set(0, 0, 10);
+        scene.add(light3);
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // 使几何体旋转
+            mesh.rotation.x += 0.01;
+            mesh.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
 
 <!--
 <script type="text/javascript">
@@ -128,5 +153,3 @@ import * as THREE from 'https://unpkg.com/three/build/three.module.js';
 		// 物体 end
 
 	</script>-->
-</body>
-</html>
