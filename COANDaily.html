@@ -11,9 +11,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=0, user-scalable=yes,shrink-to-fit=no">
 </head>
 
-<body  onclick="hidePopup()">
+<body > 
+	<!-- <body onclick="hidePopup()"> -->
 	<!-- 引入nav-menu -->
-	<script src="js/navbar.js"></script>
+	<!-- <script src="js/navbar.js"></script> -->
 
 	<div class="nav-menu">
 		<div class="nav-leftArea">
@@ -43,19 +44,19 @@
 						</button>
 						<div class="nav-dropdown-content">
 							<a href="NormalGameAssetTrading.html">普通游戏资产</a>
-							<a href="MetaGameAssetTrading.html" style="font-size: 15px;">元宇宙游戏资产</a>
+							<a href="MetaGameAssetTrading.html" style="font-size: 15px;">NFT艺术品</a>
 						</div>
 					</div>
 				</div>
 				<div class="nav-menuItem" id="nav-menuItem0">
 					<div class="nav-dropdown">
-						<button class="nav-dropbtn">NFT艺术品
+						<button class="nav-dropbtn" onclick="window.location.href='NFTAuthoring.html'">创作者专区
 							<i class="fa fa-caret-down"></i>
 						</button>
-						<div class="nav-dropdown-content">
+						<!-- <div class="nav-dropdown-content">
 							<a href="NFTArts.html">NFT艺术品</a>
 							<a href="NFTAuthoring.html">创作者专区</a>
-						</div>
+						</div> -->
 					</div>
 				</div>
 				<div class="nav-menuItem" id="nav-menuItem2">COAN Daily</div>
@@ -63,7 +64,7 @@
 			</div>
 			<div class="nav-loginAndRegistArea">
 				<div class="nav-userheadArea" id="nav-userhead">
-					<img src="img/userhead.png" alt="">
+					<img src="img/userhead.png" alt="" id="userheadPic">
 				</div>
 				<div class="nav-loginAndRegistText" id="nav-usertitle">登录</div>
 			</div>

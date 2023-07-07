@@ -42,19 +42,19 @@
                             </button>
                             <div class="nav-dropdown-content">
                                 <a href="NormalGameAssetTrading.html">普通游戏资产</a>
-                                <a href="MetaGameAssetTrading.html" style="font-size: 15px;">元宇宙游戏资产</a>
+                                <a href="MetaGameAssetTrading.html" style="font-size: 15px;">NFT艺术品</a>
                             </div>
                         </div>
                     </div>
                     <div class="nav-menuItem" id="nav-menuItem0">
                         <div class="nav-dropdown">
-                            <button class="nav-dropbtn">NFT艺术品
+                            <button class="nav-dropbtn" onclick="window.location.href='NFTAuthoring.html'">创作者专区
                                 <i class="fa fa-caret-down"></i>
                             </button>
-                            <div class="nav-dropdown-content">
+                            <!-- <div class="nav-dropdown-content">
                                 <a href="NFTArts.html">NFT艺术品</a>
                                 <a href="NFTAuthoring.html">创作者专区</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="nav-menuItem" id="nav-menuItem2">COAN Daily</div>
@@ -157,9 +157,9 @@
                                                     </div>
                                                 </div>
 
-                                                <div style="margin-bottom: 70px" class="form-group">
-                                                    <div class="generate" style="float: left;margin-left: 5%" @click="toPaintingPage()">像素板在线绘画</div>
-                                                    <div class="generate" style="float: right;margin-right: 5%" @click="uploadAndCreate()">开始生成</div>
+                                                <div class="form-group" style="text-align: center;">
+                                                    <!-- <div class="generate" style="float: left;margin-left: 5%" @click="toPaintingPage()">像素板在线绘画</div> -->
+                                                    <div class="generate" @click="uploadAndCreate()">开始生成</div>
                                                 </div>
                                             </div>
 
@@ -313,9 +313,13 @@
 					//上传并生成
 					uploadAndCreate(){
 						var that = this;
+						var data = "{\"task\":\"img2img.sd\", \
+									 \"params\":{\"model\":\"anime\", \
+												 \"text\":\"cartoon,NFT\" \
+												 \"url\":\"{{createpicbase64}}\"}"
 						alert("正在生成图像，请稍等...")
 						$.ajax({
-            				url:"http://127.0.0.1:8000/test/",
+            				url:"https://23329.o.apispace.com/aigc/img2img",
             				type:"post",
             				data:{
                 				image:this.createpicbase64,
@@ -325,6 +329,11 @@
             				xhrFields:{
                 				withCredentials:true
             				},
+							headers: {
+								"X-APISpace-Token":"te5wxqsd1odty2b5zazvsnru9zb5tfat",
+        						"Authorization-Type":"apikey",
+        						"Content-Type":"application/json"
+							},
             				success:function(data){
                 				//"data:image/jpeg;base64," + data
 								that.createdPic = "data:image/jpeg;base64," + data;
@@ -369,6 +378,7 @@
 											//将生成的模型名渲染上去
 											that.modelpicResultname = data;
 											alert("模型生成成功！")
+											that.openNFTAssetDetailDialog()
 								        }
 								    }
 								});
@@ -378,6 +388,7 @@
 					//点击开始创作NFT
 					startCreate(){
 						alert("您的NFT创作请求已上传，请留意您的邮件信息")
+						this.openNFTAssetDetailDialog()
 					},
 					//上传nft图片
 					nftPicUpload(){
@@ -419,10 +430,10 @@
 						
 						
 					},
-					//前往像素版在线绘画
-					toPaintingPage(){
-						window.location.href="https://www.pixilart.com/draw?ref=home-page"
-					},
+					// //前往像素版在线绘画
+					// toPaintingPage(){
+					// 	window.location.href="https://www.pixilart.com/draw?ref=home-page"
+					// },
 					//上传意向生成图片
 					createPicUpload(){
 						var createpicUpload = document.getElementById("createpicUpload");
